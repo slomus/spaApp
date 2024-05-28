@@ -35,6 +35,7 @@ First launch:
 
 First launch:
 
+1. Run ```npm install``` to install all package
 - You canrun ```build``` or ```dev```: <br>
     1.```build```: <br>
          -```npm run build```
