@@ -28,7 +28,7 @@ const form = useForm({
 });
 
 const submit = () => (props.isUpdating ? updateStudent() : addStudent());
-const updateStudent = () => form.put(route('students.update', {student: props.student.id}));
+const updateStudent = () => form.post(route('students.update', {student: props.student.id}));
 const addStudent = () => form.post(route('students.store'), {
     onSuccess: () => {
         form.reset();

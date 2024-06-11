@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Response;
 use App\Models\Student;
+use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
@@ -52,6 +53,22 @@ class StudentController extends Controller
             'student' => $student,
             'isUpdating' => true
         ]);
+    }
+
+    public function update(Student $student , Request $request): RedirectResponse
+    {
+        $request->validate([
+            'first_name' => ['required', 'string', 'min:6'],
+            'last_name' => ['required', 'string', 'min:3'],
+            'email' => ['required', 'email', Rule::unique('users')->ignore($student->id)],
+            'age' => ['required'],
+            'description' => ['nullable', 'string'],
+            'paid' => ['required'],
+        ]);
+
+        $student->update($request->all());
+
+        return Redirect::route('students');
     }
 
     public function destroy(Student $student): RedirectResponse
